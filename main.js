@@ -1,6 +1,7 @@
 const longitudNúmeros = 3
 
 const validarNum = (num)=>{
+    if (num.length !== longitudNúmeros){return false}
     let numeroÚnicos = new Set(num)
     if (numeroÚnicos.size === num.length){
         return true;
@@ -30,7 +31,7 @@ const contarPicas = (numUser, numPc)=>{
 }
 
 
-const numPc = [5, 4, 2];
+const numPc = [5, 4, 1];
 const numUser = [5, 1, 4];
 
 console.log(validarNum(numPc))
