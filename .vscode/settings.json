@@ -4,6 +4,8 @@
         "Numeros"
     ],
     "conventionalCommits.scopes": [
-        "Index.html"
+        "Index.html",
+        "Settings.json",
+        "main.js"
     ]
 }
