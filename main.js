@@ -1,9 +1,22 @@
 const longitudNúmeros = 3
 
+class intento{
+    constructor(num, picas, fijas){
+        this.num = num
+        this.picas = picas
+        this.fijas = fijas
+    }
+    writeTd(){
+        return `<tr><td>${this.num}</td><td>${this.picas}</td><td>${this.fijas}</td></tr>`
+    }
+}
+
 const validarNum = (num)=>{
-    if (num.length !== longitudNúmeros){return false}
-    let numeroÚnicos = new Set(num)
-    if (numeroÚnicos.size === num.length){
+    let numStr = num.toString();
+    if (numStr.length !== longitudNúmeros){return false}
+    let numArray = numStr.split()
+    let numeroÚnicos = new Set(numArray)
+    if (numeroÚnicos.size === numArray.length){
         return true;
     } else {
         return false
@@ -11,9 +24,11 @@ const validarNum = (num)=>{
 }
 
 const contarFijas = (numUser, numPc)=>{
+    let numStr = numUser.toString();
+    let numArray = numStr.split()
     let contadorFijas = 0;
     for (let index = 0; index < 3; index++) {
-        if (numUser[index] === numPc[index]){
+        if (numArray[index] === numPc[index]){
             contadorFijas++;
         };
     };
@@ -21,14 +36,40 @@ const contarFijas = (numUser, numPc)=>{
 }
 
 const contarPicas = (numUser, numPc)=>{
+    let numStr = numUser.toString();
+    let numArray = numStr.split()
     let contadorPicas = 0;
-    for (const num of numUser) {
-        if (numPc.includes(num) && numPc.indexOf(num) !== numUser.indexOf(num)){
+    for (const num of numArray) {
+        let numEnEsaPocision = parseInt(num)
+        if (numPc.includes(numEnEsaPocision) && numPc.indexOf(numEnEsaPocision) !== numUser.indexOf(numEnEsaPocision)){
             contadorPicas++;
         };
     };
     return contadorPicas;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Obtener el formulario y el campo de entrada por su ID
+    let form = document.getElementById("myForm");
+    let input = document.getElementById("myInput");
+    const numPc = [5, 4, 1];
+    // Agregar un evento de escucha para el envío del formulario
+    form.addEventListener("submit", function(event) {
+        // Prevenir el comportamiento predeterminado del formulario (enviar y recargar la página)
+        event.preventDefault();
+        // Obtener el valor del campo de entrada
+        let inputValue = input.value;
+        inputValue = parseInt(inputValue)
+        console.log(inputValue)
+        console.log(validarNum(inputValue))
+        if (validarNum(inputValue)){
+            let picas = contarPicas(inputValue, numPc)
+            let fijas = contarFijas(inputValue, numPc)
+            let numUser = new intento(inputValue, picas, fijas)
+            console.log(numUser)
+        }
+    });
+});
 
 
 const numPc = [5, 4, 1];
