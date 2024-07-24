@@ -55,24 +55,26 @@ document.addEventListener("DOMContentLoaded", function() {
     // Obtener el formulario y el campo de entrada por su ID
     let form = document.getElementById("myForm");
     let input = document.getElementById("myInput");
-    const numPc = [1, 5, 4];
+    const numPc = [2, 3, 4];
+    const tablaIntentos = document.getElementById('tablaIntentos');
+    tablaIntentos.innerHTML += '<tr><th>Numero</th><th>Picas</th><th>Fijas</th></tr>';
     // Agregar un evento de escucha para el envío del formulario
     form.addEventListener("submit", function(event) {
         // Prevenir el comportamiento predeterminado del formulario (enviar y recargar la página)
         event.preventDefault();
         // Obtener el valor del campo de entrada
         let inputValue = input.value;
-        inputValue = parseInt(inputValue)
-        console.log(inputValue)
-        console.log(validarNum(inputValue))
+        inputValue = parseInt(inputValue);
+        console.log(inputValue);
+        console.log(validarNum(inputValue));
         if (validarNum(inputValue)){
             document.close()
             let picas = contarPicas(inputValue, numPc)
             let fijas = contarFijas(inputValue, numPc)
             let numUser = new intento(inputValue, picas, fijas)
-            document.write(numUser.writeTd())
-            document.write("</table>")
-        }
+            tablaIntentos.innerHTML += `${numUser.writeTd()}`
+            // Supongamos que tienes un elemento <div> con id="contenido"
+        };
     });
 });
 
