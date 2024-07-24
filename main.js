@@ -14,7 +14,7 @@ class intento{
 const validarNum = (num)=>{
     let numStr = num.toString();
     if (numStr.length !== longitudNúmeros){return false}
-    let numArray = numStr.split()
+    let numArray = numStr.split("")
     let numeroÚnicos = new Set(numArray)
     if (numeroÚnicos.size === numArray.length){
         return true;
@@ -25,10 +25,12 @@ const validarNum = (num)=>{
 
 const contarFijas = (numUser, numPc)=>{
     let numStr = numUser.toString();
-    let numArray = numStr.split()
+    let numArray = numStr.split("")
+    console.log(numArray)
     let contadorFijas = 0;
+    let intNumUser = numArray.map((e)=>parseInt(e))
     for (let index = 0; index < 3; index++) {
-        if (numArray[index] === numPc[index]){
+        if (intNumUser[index] === numPc[index]){
             contadorFijas++;
         };
     };
@@ -37,11 +39,12 @@ const contarFijas = (numUser, numPc)=>{
 
 const contarPicas = (numUser, numPc)=>{
     let numStr = numUser.toString();
-    let numArray = numStr.split()
+    let numArray = numStr.split("");
     let contadorPicas = 0;
     for (const num of numArray) {
-        let numEnEsaPocision = parseInt(num)
-        if (numPc.includes(numEnEsaPocision) && numPc.indexOf(numEnEsaPocision) !== numUser.indexOf(numEnEsaPocision)){
+        let intNumUser = numArray.map((e)=>parseInt(e))
+        let numEnEsaPosicion = parseInt(num);
+        if (numPc.includes(numEnEsaPosicion) && numPc.indexOf(numEnEsaPosicion) !== intNumUser.indexOf(numEnEsaPosicion)){
             contadorPicas++;
         };
     };
@@ -52,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Obtener el formulario y el campo de entrada por su ID
     let form = document.getElementById("myForm");
     let input = document.getElementById("myInput");
-    const numPc = [5, 4, 1];
+    const numPc = [1, 5, 4];
     // Agregar un evento de escucha para el envío del formulario
     form.addEventListener("submit", function(event) {
         // Prevenir el comportamiento predeterminado del formulario (enviar y recargar la página)
@@ -63,20 +66,22 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(inputValue)
         console.log(validarNum(inputValue))
         if (validarNum(inputValue)){
+            document.close()
             let picas = contarPicas(inputValue, numPc)
             let fijas = contarFijas(inputValue, numPc)
             let numUser = new intento(inputValue, picas, fijas)
-            console.log(numUser)
+            document.write(numUser.writeTd())
+            document.write("</table>")
         }
     });
 });
 
 
-const numPc = [5, 4, 1];
+/* const numPc = [5, 4, 1];
 const numUser = [5, 1, 4];
 
 console.log(validarNum(numPc))
 console.log(validarNum(numUser))
 
 console.log(contarFijas(numUser, numPc));
-console.log(contarPicas(numUser, numPc));
+console.log(contarPicas(numUser, numPc)); */
